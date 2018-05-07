@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row justify-content-center">
+		<div class="col-lg-3 col-sm-6">
+
+            <div class="card hovercard">
+                <div class="cardheader">
+
+                </div>
+                <div class="avatar">
+                    <img alt="" src="assets/img/user-picture.jpg">
+                </div>
+                <div class="info" *ngFor="let u of user" >
+                    <div class="title">
+                        <a target="_blank">{{u.firstname}} {{u.lastname}}</a>
+                    </div>
+                    <div class="desc">{{u.cin}}</div>
+                    <div class="desc">{{u.email}}</div>
+                </div>
+                <div class="bottom">
+                    <a class="btn btn-primary btn-twitter btn-sm" href="">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a class="btn btn-danger btn-sm" rel="publisher"
+                       href="">
+                        <i class="fa fa-google-plus"></i>
+                    </a>
+                    <a class="btn btn-primary btn-sm" rel="publisher"
+                       href="">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a class="btn btn-warning btn-sm" rel="publisher" href="">
+                        <i class="fa fa-behance"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+	</div>
+</div>

@@ -1,0 +1,120 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" [routerLink]="['/']">Events</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/']">{{'Home' | translate}}</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/contact']">{{'contact' | translate}}</a>
+          </li>
+      </ul>
+      <ul class="my-2 my-lg-0" [ngStyle]="{'display' : signin === true ? 'none' : 'block'}">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signInModalLong">
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+          {{ 'Login' | translate}}
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signUpModalLong">
+          <i class="fa fa-floppy-o" aria-hidden="true"></i>
+          {{ 'Register' | translate}}
+        </button>
+      </ul>
+      <ul class="my-2 my-lg-0" [ngStyle]="{'display' : signin === true ? 'block' : 'none'}">
+        <a class="btn btn-primary" [routerLink]="['/profile']">
+            <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+        </a>
+        <button type="button" class="btn btn-primary" (click)="logOut()">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+              {{ 'logout' | translate}}
+        </button>
+      </ul>
+      <ul class="my-2 my-lg-0">
+        <select #langSelect (change)="translate.use(langSelect.value)">
+          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+      </select>
+      </ul>
+  </div>
+</nav>
+<div class="modal fade" id="signInModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Events Logo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="{{'email' | translate }}" name="email" [(ngModel)]="email">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="{{'password' | translate}}" name="password" [(ngModel)]="password">
+          </div>
+          <button class="btn btn-raised btn-primary btn-block" (click)="logIn()" >{{'Login'| translate}}</button>
+        </form>
+        <a class="btn btn-raised btn-secondary btn-block" >{{'Forgot password'| translate}} ?</a>
+        <p class="text-center mt-5 text-primary" style="font-size: 14px; font-weight: bold;">
+          {{'Need Support'| translate}} ? <a class="btn btn-light btn-primary" [routerLink]="['/contact']" data-dismiss="modal" aria-label="Close" style="color: #009688 !important">{{'Contact Us' | translate}}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="signUpModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Events Logo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="typeCustomer" class="bmd-label-floating">{{ 'what are you' | translate}} ?</label>
+                <select class="form-control" id="typeCustomer" name="typeCustomer" [(ngModel)]="typeCustomer">
+                  <option value="organisation">{{'Organisation' | translate}}</option>
+                  <option value="member">{{'Member' | translate}}</option>
+                </select>
+              </div>
+        </form>
+        <form [ngStyle]="{'display' : typeCustomer === 'member' ? 'block' : 'none'}">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="{{'firstname' | translate}}" name="firstname" [(ngModel)]="firstname" required>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="{{'lastname' | translate}}" name="lastname" [(ngModel)]="lastname" required>
+          </div>
+          <div class="form-group">
+              <input type="number" class="form-control" min="10000000" max="99999999" placeholder="{{'CIN' | translate}}" name="cin" [(ngModel)]="cin" required>
+            </div>
+          <div class="form-group">
+            <input type="email" class="form-control" placeholder="{{'email' | translate}}" name="email" [(ngModel)]="email" required>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="{{'password' | translate}}" name="password" [(ngModel)]="password" required>
+          </div>
+          <button class="btn btn-raised btn-primary btn-block" (click)="signUp()">{{'Register' | translate}}</button>
+        </form>
+        <form [ngStyle]="{'display' : typeCustomer === 'organisation' ? 'block' : 'none'}">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="{{'name' | translate}}" name="name" [(ngModel)]="name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="{{'email' | translate}}" name="email" [(ngModel)]="email" required>
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="{{'password' | translate}}" name="password" [(ngModel)]="password" required>
+            </div>
+            <button class="btn btn-raised btn-primary btn-block">{{'Register' | translate}}</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
